@@ -116,7 +116,10 @@ $(document).ready(function(){
 	}
 	
 	// Initialize sigma with the dataset:
-	sigma.parsers.gexf('data/movies.gexf', {
+	var defaultGraph = $('#defaultGraph').val();
+	console.log(defaultGraph);
+	
+	sigma.parsers.gexf(defaultGraph, {
 	  container: 'graph-container',
 	  settings: {
 	    edgeColor: 'default',
@@ -203,8 +206,75 @@ $(document).ready(function(){
       });
 		      
 	}); // End of callback function in parsers.gexf
-});
 
+	/////////////////////////////
+	// Menu
+	var theMenu = '#menu';
+	$(theMenu).bind('click', function(e){
+		var _this = $(this);
+		if (_this.hasClass('menu_openned')) {
+			// Close
+			//_this.removeClass('menu_openned');
+			//iconMenuCss();
+		}
+		else {
+			// Open
+			_this.addClass('menu_openned');
+			wideMenuCss();
+		}
+	});
+	
+	function wideMenuCss() {
+		$(theMenu).css('background-image', 'none');
+		$(theMenu).animate({
+			'width': '200px',
+			'height': '120px',
+			'padding': '10px',
+			backgroundImage: 'none'
+		}, 500, '', function() {
+			$('#menu_content').show();
+			$(theMenu).css({
+				'cursor': 'default'
+			});
+		});
+	}
+	
+	function iconMenuCss() {
+		$('#menu_content').hide();
+		$(theMenu).animate({
+			'width': '40px',
+			'height': '40px',
+			'padding': '0px'
+		}, 500,'',function() {
+			$(theMenu).css({
+				'background-image': 'url(img/menu.png)',
+				'cursor': 'pointer'
+			});
+		});
+	}
+	
+	$('#buttonOpenGraph').on('click', function() {
+		var newGraph = $('#listOfGraphs').val();
+		
+		$.ajax({
+			type: 'POST',
+			url: 'php/select_graph.php',
+			data: {graph: newGraph},
+			success: function(data) {
+				//console.log(data);
+				location.reload();
+			}
+		});
+	});
+	
+	$('#closeMenu').on('click', function(e) {
+		$(theMenu).removeClass('menu_openned');
+		iconMenuCss();
+		e.stopPropagation();
+	});
+	// End Menu
+	/////////////////////////////
+});
 
 // WORKS SIMPLE GRAPH 
 /*sigma.parsers.gexf(

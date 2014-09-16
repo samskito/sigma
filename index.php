@@ -2,6 +2,10 @@
 ini_set('display_errors',1);
 ini_set('display_startup_errors',true);
 ini_set('error_reporting',E_ALL);
+$sigma_class = 'php/classes/sigma.class.php';
+$settings_class = 'php/classes/settings.class.php';
+$path = $_SERVER['DOCUMENT_ROOT'].'/sigma/';
+			
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,6 +17,37 @@ ini_set('error_reporting',E_ALL);
 
 	<body>
 		<div id="container">
+			<div id="menu">
+			
+				<?php
+					if (file_exists($settings_class)) {
+						require_once($settings_class);
+					}
+				?>
+				
+				<div id="menu_content">
+					<!--<h2>Upload file</h2>-->
+					<?php
+						$settings = new Settings();
+						echo '<input id="defaultGraph" value="'.$settings->getDefaultGraph().'" type="hidden" />';
+					?>
+					
+					<h2>List of files</h2>
+					<select id="listOfGraphs">
+					<?php
+						foreach($settings->getGraphs() as $graph) {
+							echo '<option value="'.$graph.'">';
+							echo str_replace($path.'data/', '', $graph);
+							echo '</option>';
+						}
+					?>
+					</select>
+					<button id="buttonOpenGraph">Open graph</button>
+					
+					<div id="closeMenu"></div>
+				</div>
+			</div>
+			
 			<div id="graph-container"></div>
 			
 			<div id="control-pane">
@@ -44,8 +79,6 @@ ini_set('error_reporting',E_ALL);
 		
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<?php
-			
-			$sigma_class = 'php/classes/sigma.class.php';
 			
 			if (file_exists($sigma_class)) {
 				// Include sigma class
