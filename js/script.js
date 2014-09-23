@@ -227,8 +227,8 @@ $(document).ready(function(){
 	function wideMenuCss() {
 		$(theMenu).css('background-image', 'none');
 		$(theMenu).animate({
-			'width': '200px',
-			'height': '120px',
+			'width': '250px',
+			'height': '260px',
 			'padding': '10px',
 			backgroundImage: 'none'
 		}, 500, '', function() {

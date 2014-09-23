@@ -4,6 +4,8 @@ ini_set('display_startup_errors',true);
 ini_set('error_reporting',E_ALL);
 $sigma_class = 'php/classes/sigma.class.php';
 $settings_class = 'php/classes/settings.class.php';
+$upload_class = 'php/classes/upload.class.php';
+
 $path = $_SERVER['DOCUMENT_ROOT'].'/sigma/';
 			
 ?>
@@ -33,6 +35,7 @@ $path = $_SERVER['DOCUMENT_ROOT'].'/sigma/';
 					?>
 					
 					<h2>List of files</h2>
+					<form>
 					<select id="listOfGraphs">
 					<?php
 						foreach($settings->getGraphs() as $graph) {
@@ -43,6 +46,26 @@ $path = $_SERVER['DOCUMENT_ROOT'].'/sigma/';
 					?>
 					</select>
 					<button id="buttonOpenGraph">Open graph</button>
+					</form>
+					
+					<?php
+						if (file_exists($upload_class)) {
+							require_once($upload_class);
+						}
+						
+						if (isset($_FILES['gexf_file'])) {
+							$handler = new Upload($path.'data/upload/', $_FILES['gexf_file'], 33554432, 'application/octet-stream', 'gexf', null, false);
+							if ($handler->upload()) {
+								$url = $_SERVER['PHP_SELF'];
+								echo '<META http-equiv="refresh" content="0;URL='.$url.'">';	
+							}
+						}
+					?>
+					<h2>Upload a file</h2>
+					<form action="#" method="post" enctype="multipart/form-data">
+					<input type="file" name="gexf_file" />
+					<button>Upload GEXF</button>
+					</form>
 					
 					<div id="closeMenu"></div>
 				</div>
