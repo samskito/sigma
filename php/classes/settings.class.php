@@ -50,7 +50,7 @@
 				foreach ($list as $file) {
 					$pieces_file = explode('.', $file);
 					
-					if (!in_array($file, $this->not_want) && end($pieces_file) == $this->extention && $this->path.$this->default_graph_location.($upload ? $this->default_graph_uplaod_location : '').$file != $this->path.$this->default_graph) {
+					if (!in_array($file, $this->not_want) && end($pieces_file) == $this->extention) {
 						array_push($tmp, $this->path.$this->default_graph_location.($upload ? $this->default_graph_uplaod_location : '').$file);
 					}
 				}

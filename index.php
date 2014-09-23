@@ -35,18 +35,20 @@ $path = $_SERVER['DOCUMENT_ROOT'].'/sigma/';
 					?>
 					
 					<h2>List of files</h2>
-					<form>
+					<div class="form_menu">
 					<select id="listOfGraphs">
 					<?php
+						$default_graph = str_replace('data/', '', $settings->getDefaultGraph());
+						
 						foreach($settings->getGraphs() as $graph) {
-							echo '<option value="'.$graph.'">';
+							echo '<option value="'.$graph.'" '.($default_graph == str_replace($path.'data/', '', $graph) ? 'selected' : '').'>';
 							echo str_replace($path.'data/', '', $graph);
 							echo '</option>';
 						}
 					?>
 					</select>
 					<button id="buttonOpenGraph">Open graph</button>
-					</form>
+					</div>
 					
 					<?php
 						if (file_exists($upload_class)) {
@@ -62,7 +64,7 @@ $path = $_SERVER['DOCUMENT_ROOT'].'/sigma/';
 						}
 					?>
 					<h2>Upload a file</h2>
-					<form action="#" method="post" enctype="multipart/form-data">
+					<form action="#" method="post" enctype="multipart/form-data" class="form_menu">
 					<input type="file" name="gexf_file" />
 					<button>Upload GEXF</button>
 					</form>

@@ -98,7 +98,7 @@ input[type=range] {
 	right:10px;
 }
 
-#menu_content form {
+#menu_content .form_menu {
 	background:#ccc;
 	padding: 10px;
 }
