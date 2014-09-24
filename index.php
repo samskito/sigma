@@ -78,13 +78,20 @@ $path = $_SERVER['DOCUMENT_ROOT'].'/sigma/';
 					<div id="closeMenu"></div>
 				</div>
 			</div>
-			
-			<div id="graph_name"><?php echo str_replace($settings->getGraphLocation(), '', $settings->getDefaultGraph()); ?></div>
+			<?php
+				$graph_name = str_replace($settings->getGraphLocation(), '', $settings->getDefaultGraph());
+			?>
+			<div id="graph_name"><?php echo $graph_name; ?></div>
 			
 			<div id="graph-container"></div>
 			
 			<div id="control-pane">
-				<h2 class="underline">filters</h2>
+				<h2 class="underline">Settings</h2>
+				<div>
+					<strong>Public url</strong><br/>
+					<input id="graph_url" value="<?php echo 'http://readidesignlab.lecolededesign.com/graph/?view='.$graph_name; ?>" type="text" />
+				</div>
+				<h2 class="underline">Filters</h2>
 				
 				<div>
 					<h3>min degree <span id="min-degree-val">0</span></h3>
