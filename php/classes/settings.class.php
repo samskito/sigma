@@ -12,14 +12,26 @@
 		
 		function __construct() {
 			$this->path = $_SERVER['DOCUMENT_ROOT'].'/sigma/';
-			$this->default_graph = $this->readDefaultGraph();
 			$this->makeGraphList();
+			$this->default_graph = $this->readDefaultGraph();
 		}
 		
 		private function readDefaultGraph() {
-			if (file_exists($this->path.$this->file_location)) {
-				$file = file_get_contents($this->path.$this->file_location);
-				return $file;	
+			if (isset($_GET['graph_name']) && trim($_GET['graph_name']) != '') {
+				$requested_graph = $this->path.$this->default_graph_location.$_GET['graph_name'].'.'.$this->extention;
+				
+				if (in_array($requested_graph, $this->graph_list)) {
+					return str_replace($this->path, '', $requested_graph);
+				}
+				else {
+					return str_replace($this->path, '', $this->graph_list[0]);
+				}
+			}
+			else {
+				if (file_exists($this->path.$this->file_location)) {
+					$file = file_get_contents($this->path.$this->file_location);
+					return $file;	
+				}	
 			}
 		}
 		
@@ -31,6 +43,10 @@
 		
 		public function getDefaultGraph() {
 			return $this->default_graph;
+		}
+		
+		public function getGraphLocation() {
+			return $this->default_graph_location;
 		}
 		
 		private function makeGraphList() {

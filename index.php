@@ -32,6 +32,12 @@ $path = $_SERVER['DOCUMENT_ROOT'].'/sigma/';
 					<?php
 						$settings = new Settings();
 						echo '<input id="defaultGraph" value="'.$settings->getDefaultGraph().'" type="hidden" />';
+						echo '<input id="path" value="'.$path.'" type="hidden" />';
+						
+						$uri = explode('?', $_SERVER['REQUEST_URI']);
+						$uri = $uri[0];
+						
+						echo '<input id="site" value="'.$_SERVER['HTTP_HOST'].$uri.'" type="hidden" />';
 					?>
 					
 					<h2>List of files</h2>
@@ -72,6 +78,8 @@ $path = $_SERVER['DOCUMENT_ROOT'].'/sigma/';
 					<div id="closeMenu"></div>
 				</div>
 			</div>
+			
+			<div id="graph_name"><?php echo str_replace($settings->getGraphLocation(), '', $settings->getDefaultGraph()); ?></div>
 			
 			<div id="graph-container"></div>
 			

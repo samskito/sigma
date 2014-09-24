@@ -102,3 +102,21 @@ input[type=range] {
 	background:#ccc;
 	padding: 10px;
 }
+
+#graph_name {
+	position: absolute;
+	top: 10px;
+	width:auto;
+	margin-left:50%;
+	border: 1px solid #ccc;
+	height:25px;
+	line-height: 25px;
+	font-size: 16px;
+	text-align: center;
+	vertical-align: middle;
+	z-index: 100;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+	background: #fff;
+	padding:0px 10px;
+	font-weight: bold;
+}

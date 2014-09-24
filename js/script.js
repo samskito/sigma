@@ -255,14 +255,20 @@ $(document).ready(function(){
 	
 	$('#buttonOpenGraph').on('click', function() {
 		var newGraph = $('#listOfGraphs').val();
+		var path = $('#path').val();
+		var site = $('#site').val();
 		
 		$.ajax({
 			type: 'POST',
 			url: 'php/select_graph.php',
 			data: {graph: newGraph},
 			success: function(data) {
-				//console.log(data);
-				location.reload();
+				var param = newGraph.replace(path+'data/', '').replace('.gexf', '');
+				var test = 'http://' + site + '?graph_name=' + param;
+				
+				//location.reload();
+				console.log(test);
+				document.location = test;
 			}
 		});
 	});
@@ -271,6 +277,12 @@ $(document).ready(function(){
 		$(theMenu).removeClass('menu_openned');
 		iconMenuCss();
 		e.stopPropagation();
+	});
+	
+	var width_graph_name_div = '-' + ($('#graph_name').width() / 2) + 'px';
+	$('#graph_name').css({
+		'left': '50%',
+		'margin-left': width_graph_name_div
 	});
 	// End Menu
 	/////////////////////////////
