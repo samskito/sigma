@@ -153,10 +153,26 @@ $(document).ready(function(){
 	      }, 'node-category')
 	      .apply();
 	  }
+	  
+	  // ADDED BY GEOFFROY
+	  function applySearch(e) {
+	  	  var search = $('#search_node_input').val();
+	  	  
+		  if (search.length == 0) {
+		  	  filter.undo('node-name');
+		  }
+		  else {
+		  	  filter.undo('node-name').nodesBy(function(e){
+				  //console.log(e);
+				  return e.label.toLowerCase().indexOf(search.toLowerCase()) > -1;
+			  }, 'node-name').apply();
+		  }
+	  }
 	
 	  _.$('min-degree').addEventListener("input", applyMinDegreeFilter);  // for Chrome and FF
 	  _.$('min-degree').addEventListener("change", applyMinDegreeFilter); // for IE10+, that sucks
 	  _.$('node-category').addEventListener("change", applyCategoryFilter);
+	  _.$('search_node_input').addEventListener("keyup", applySearch); // ADDED BY GEOFFROY
 	  
 	  s.graph.nodes().forEach(function(n) {
         n.originalColor = n.color;
@@ -169,7 +185,9 @@ $(document).ready(function(){
         var nodeId = e.data.node.id,
             toKeep = s.graph.neighbors(nodeId);
         toKeep[nodeId] = e.data.node;
-
+        
+        filter.undo('node-name').apply(); // ADDED BY GEOFFROY
+        
         s.graph.nodes().forEach(function(n) {
           if (toKeep[n.id])
             n.color = n.originalColor;

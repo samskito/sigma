@@ -88,6 +88,9 @@ $path = $_SERVER['DOCUMENT_ROOT'].'/sigma/';
 			<div id="control-pane">
 				<h2 class="underline">Settings</h2>
 				<div>
+					<strong>Search</strong><br/>
+					<input type="text" value="" id="search_node_input" /><br/><br/>
+					
 					<strong>Public url</strong><br/>
 					<input id="graph_url" value="<?php echo 'http://readidesignlab.lecolededesign.com/graph/?view='.$graph_name; ?>" type="text" />
 				</div>
